@@ -1,5 +1,7 @@
 import java.util.Vector;
 
+import java.util.Scanner;
+
 /**
  * 
  */
@@ -10,34 +12,41 @@ import java.util.Vector;
  */
 public class StringContainsAllUniqueCharacters {
 	private static final int ASCII_CHARACTER_COUNT = 128;
-	private static final String WELCOME_MESSAGE = "--    ASCII unique character string analyzer.   --\n--Checks if all unique ASCII characters are used--";
+	private static final String WELCOME_MESSAGE = "--    ASCII unique, printable character string analyzer.   --\n--Checks if all unique ASCII characters are used--";
 	private static final String INPUT_QUESTION = "Please enter a string to examine: ";
 	private static final String ENTER_ANOTHER_STRING_QUESTION = "Would you like to enter another string? y/n: ";
 
 	public static void main(String[] args) 
 	{
+		Scanner scanner = new Scanner(System.in);
 		boolean keepRunning = false;
 		
+		System.out.println(StringContainsAllUniqueCharacters.WELCOME_MESSAGE);
+		
 		do{
-			String input = "";
-			Vector<Character> charVector = new Vector<Character>();
-			
-			System.out.println(StringContainsAllUniqueCharacters.WELCOME_MESSAGE);
 			System.out.println(StringContainsAllUniqueCharacters.INPUT_QUESTION);
-			//System.console().readline() does not work in the IDE. Look for another solution if I want to run this in Eclipse. 
-			input = System.console().readLine();
+
+			String input = "";
+			Vector<Integer> charVector = new Vector<Integer>();
 			
+			input = scanner.nextLine();
+
 			if(input.length() < StringContainsAllUniqueCharacters.ASCII_CHARACTER_COUNT)
 			{
-				System.out.println("There were only " + input.length() + " characters in that string. There are 128 unique ASCII characters.");
+				System.out.println("There were only " + input.length() + " characters in that string. There are " + StringContainsAllUniqueCharacters.ASCII_CHARACTER_COUNT + " unique, printable ASCII characters.");
 			}
 			else
-			{		
+			{
 				for (int i = 0; i < input.length(); i++)
 				{
-					if(!charVector.contains(input.charAt(i)))
+					int intValueOfChar = (int)input.charAt(i);
+					
+					if(intValueOfChar >= 0 && intValueOfChar <= 127)
 					{
-						charVector.add(input.charAt(i));
+						if(!charVector.contains(intValueOfChar))
+						{
+							charVector.add(intValueOfChar);
+						}
 					}
 				}
 				
@@ -56,8 +65,9 @@ public class StringContainsAllUniqueCharacters {
 			do
 			{
 				System.out.print(StringContainsAllUniqueCharacters.ENTER_ANOTHER_STRING_QUESTION);
-				input = System.console().readLine();
 				
+				scanner = new Scanner(System.in);
+				input = scanner.nextLine();
 				
 				if(input.equalsIgnoreCase("y"))
 				{
@@ -71,6 +81,10 @@ public class StringContainsAllUniqueCharacters {
 				}
 			}while(!validInput);
 		}while (keepRunning);
+		
+		System.out.println("Exiting...");
+		
+		scanner.close();
 	}
 
 }
