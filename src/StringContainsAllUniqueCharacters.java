@@ -23,10 +23,11 @@ public class StringContainsAllUniqueCharacters {
 			Vector<Character> charVector = new Vector<Character>();
 			
 			System.out.println(StringContainsAllUniqueCharacters.WELCOME_MESSAGE);
-			System.out.print(StringContainsAllUniqueCharacters.INPUT_QUESTION);
+			System.out.println(StringContainsAllUniqueCharacters.INPUT_QUESTION);
+			//System.console().readline() does not work in the IDE. Look for another solution if I want to run this in Eclipse. 
 			input = System.console().readLine();
 			
-			if(input.length() < 128)
+			if(input.length() < StringContainsAllUniqueCharacters.ASCII_CHARACTER_COUNT)
 			{
 				System.out.println("There were only " + input.length() + " characters in that string. There are 128 unique ASCII characters.");
 			}
@@ -40,7 +41,7 @@ public class StringContainsAllUniqueCharacters {
 					}
 				}
 				
-				if(charVector.size() == 128)
+				if(charVector.size() == StringContainsAllUniqueCharacters.ASCII_CHARACTER_COUNT)
 				{
 					System.out.println("All 128 unique ASCII characters were found in your string!");
 				}
@@ -54,10 +55,21 @@ public class StringContainsAllUniqueCharacters {
 			
 			do
 			{
-				System.out.print()
+				System.out.print(StringContainsAllUniqueCharacters.ENTER_ANOTHER_STRING_QUESTION);
+				input = System.console().readLine();
+				
+				
+				if(input.equalsIgnoreCase("y"))
+				{
+					validInput = true;
+					keepRunning = true;
+				}
+				else if (input.equalsIgnoreCase("n"))
+				{
+					validInput = true;
+					keepRunning = false;
+				}
 			}while(!validInput);
-			
-			
 		}while (keepRunning);
 	}
 
